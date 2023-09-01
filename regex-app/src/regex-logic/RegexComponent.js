@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { validateWithRegex } from "./regexFunc"
+import { testFunction, validateWithRegex } from "./regexFunc"
 
 const RegexComponent = () => {
     const [strToTest, setStrToTest] = useState("")
     const [testResult, setTestResult] = useState(null)
+    const [checkResult, setCheckResult] = useState(null)
 
     const handleOnChange = (e) => {
         setStrToTest(e.target.value)
@@ -12,6 +13,11 @@ const RegexComponent = () => {
     const handleOnTest = () => {
         const result = validateWithRegex(strToTest, 10)
         setTestResult(result)
+    }
+
+    const handleOnCheck = () => {
+        const result = testFunction(strToTest, 10)
+        setCheckResult(result)
     }
 
     return (
@@ -32,6 +38,16 @@ const RegexComponent = () => {
                     <article>
                         <h1>Result</h1>
                         <h3>{testResult ? "Valid" : "Not valid"}</h3>
+                    </article>
+                )}
+            </section>
+            <section>
+                <h2>Check test function result</h2>
+                <button onClick={handleOnCheck}>Check</button>
+                {checkResult !== null && (
+                    <article>
+                        <h1>Result</h1>
+                        <h3>{checkResult ? "Everything works!" : "Something is broken!"}</h3>
                     </article>
                 )}
             </section>
